@@ -1,0 +1,12 @@
+{
+  "name": "treazer_admin",
+  "displayName": "treazer_admin",
+  "expo": {
+    "name": "treazer_admin",
+    "slug": "treazer_admin",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
