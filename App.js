@@ -1,11 +1,9 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
 import Rootnavigation from "./src/rootnavigation";
+import { OrderContextProvider } from "./src/orderContext";
 import * as PusherPushNotifications from "@pusher/push-notifications-web";
-
 const beamsClient = new PusherPushNotifications.Client({
-  instanceId: "4c134700-4141-489d-b536-a6417609ba38",
+  instanceId: "36674458-c456-44a3-823b-616088fa88e1",
 });
 export default function App() {
   beamsClient
@@ -21,19 +19,8 @@ export default function App() {
       console.log(err);
     });
   return (
-    <View style={styles.container}>
+    <OrderContextProvider>
       <Rootnavigation />
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style='auto' />
-    </View>
+    </OrderContextProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
