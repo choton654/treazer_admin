@@ -1,12 +1,16 @@
 {
   "main": "index.js",
   "scripts": {
+    "predeploy": "expo build:web",
+    "deploy-hosting": "npm run predeploy && firebase deploy --only hosting",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "web": "expo start --web",
+    "build": "expo build:web",
     "start": "react-native start"
   },
   "dependencies": {
+    "@pusher/push-notifications-web": "^1.1.0",
     "expo": "~41.0.1",
     "expo-splash-screen": "~0.10.2",
     "expo-status-bar": "~1.0.4",
