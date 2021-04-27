@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, ScrollView, Dimensions } from "react-native";
 const { height } = Dimensions.get("window");
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { Button, ActivityIndicator } from "react-native-paper";
+import { Button, ActivityIndicator, Divider } from "react-native-paper";
 import axios from "axios";
 import BASE_URL from "./api";
 import { orderContext } from "./orderContext";
@@ -44,12 +44,13 @@ const Allorders = () => {
             <View
               key={idx}
               style={{
-                height: 220,
+                height: height * 0.7,
                 paddingHorizontal: 10,
                 marginTop: 10,
               }}>
               <View
                 style={{
+                  height: "100%",
                   borderColor: "#455a64",
                   borderBottomLeftRadius: 20,
                   borderBottomRightRadius: 20,
@@ -70,7 +71,40 @@ const Allorders = () => {
                     color: "#424242",
                     letterSpacing: 1,
                   }}>
+                  Order Id:{order._id}
+                </Text>
+                <Text
+                  style={{
+                    marginTop: 5,
+                    marginLeft: 10,
+                    fontWeight: "600",
+                    fontSize: 15,
+                    color: "#424242",
+                    letterSpacing: 1,
+                  }}>
+                  Buyer info
+                </Text>
+                <Text
+                  style={{
+                    marginTop: 5,
+                    marginLeft: 10,
+                    fontWeight: "600",
+                    fontSize: 15,
+                    color: "#424242",
+                    letterSpacing: 1,
+                  }}>
                   {order.userId && order.userId.username}
+                </Text>
+                <Text
+                  style={{
+                    marginTop: 5,
+                    marginLeft: 10,
+                    fontWeight: "600",
+                    fontSize: 15,
+                    color: "#424242",
+                    letterSpacing: 1,
+                  }}>
+                  Ph:{order.userId && order.userId.mobile_no}
                 </Text>
                 <Text
                   style={{
@@ -185,6 +219,66 @@ const Allorders = () => {
                       order.shippingaddress.formattedAddress}
                   </Text>
                 </View>
+                <Divider />
+                <View>
+                  <Text
+                    style={{
+                      marginTop: 5,
+                      marginLeft: 10,
+                      fontWeight: "600",
+                      fontSize: 15,
+                      color: "#424242",
+                      letterSpacing: 1,
+                    }}>
+                    Store info
+                  </Text>
+                  <Text
+                    style={{
+                      marginTop: 5,
+                      marginLeft: 10,
+                      fontWeight: "600",
+                      fontSize: 15,
+                      color: "#424242",
+                      letterSpacing: 1,
+                    }}>
+                    {order.resturantId && order.resturantId.resturant_name}
+                  </Text>
+                  <Text
+                    style={{
+                      marginTop: 5,
+                      marginLeft: 10,
+                      fontWeight: "600",
+                      fontSize: 15,
+                      color: "#424242",
+                      letterSpacing: 1,
+                    }}>
+                    Ph:{order.resturantId && order.resturantId.phone}
+                  </Text>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      marginVertical: 10,
+                    }}>
+                    <Ionicons
+                      name='location-sharp'
+                      size={20}
+                      color='#4fc3f7'
+                      style={{ marginLeft: 10 }}
+                    />
+                    <Text
+                      style={{
+                        marginHorizontal: 5,
+                        fontWeight: "600",
+                        fontSize: 12,
+                        color: "#424242",
+                        letterSpacing: 1,
+                      }}>
+                      {order.resturantId &&
+                        order.resturantId.location.formattedAddress}
+                    </Text>
+                  </View>
+                </View>
+
                 {acceptOrderReq ? (
                   <View
                     style={{
@@ -196,7 +290,7 @@ const Allorders = () => {
                       mode='contained'
                       // onPress={() => acceptOrder(user._id, order._id)}
                       style={{
-                        marginBottom: 10,
+                        marginVertical: 10,
                         width: "20%",
                         height: 30,
                         backgroundColor: "#4fc3f7",
