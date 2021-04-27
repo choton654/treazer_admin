@@ -220,7 +220,7 @@ const Allorders = () => {
                   </Text>
                 </View>
                 <Divider />
-                <View>
+                <View style={{ marginTop: 5 }}>
                   <Text
                     style={{
                       marginTop: 5,
