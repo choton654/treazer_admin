@@ -17,14 +17,12 @@ const Allorders = () => {
 
   const getAllOrders = () => {
     if (odrState.orders === null) {
-      setacceptOrderReq(false);
       axios
         .get(`${BASE_URL}/api/order/adminallorder`)
         .then((res) => {
           const { order } = res.data;
           console.log(order);
           orderDispatch({ type: "GET_ALL_ORDERS", payload: order });
-          setacceptOrderReq(true);
         })
         .catch((err) => {
           console.log(err);
@@ -32,6 +30,20 @@ const Allorders = () => {
     }
   };
 
+  const verifyOrder = (orderId) => {
+    setacceptOrderReq(false);
+    axios
+      .post(`${BASE_URL}/api/order/adminverifyorder`, { orderId })
+      .then((res) => {
+        const { msg, order } = res.data;
+        console.log(msg, order);
+        orderDispatch({ type: "VERIFY_ORDER", payload: order });
+        setacceptOrderReq(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <ScrollView
       contentContainerStyle={{
@@ -286,24 +298,44 @@ const Allorders = () => {
                       alignItems: "center",
                       marginBottom: 5,
                     }}>
-                    <Button
-                      mode='contained'
-                      // onPress={() => acceptOrder(user._id, order._id)}
-                      style={{
-                        marginVertical: 10,
-                        width: "20%",
-                        height: 30,
-                        backgroundColor: "#4fc3f7",
-                        boxShadow: "0px 2px 5px 2px #bdbdbd",
-                      }}
-                      labelStyle={{
-                        color: "#ffffff",
-                        fontWeight: "700",
-                        fontSize: 12,
-                        marginHorizontal: "none",
-                      }}>
-                      Done
-                    </Button>
+                    {order && order.isAdminVerify ? (
+                      <Button
+                        mode='contained'
+                        style={{
+                          marginVertical: 10,
+                          width: "20%",
+                          height: 30,
+                          backgroundColor: "#4fc3f7",
+                          boxShadow: "0px 2px 5px 2px #bdbdbd",
+                        }}
+                        labelStyle={{
+                          color: "#ffffff",
+                          fontWeight: "700",
+                          fontSize: 12,
+                          marginHorizontal: "none",
+                        }}>
+                        Done
+                      </Button>
+                    ) : (
+                      <Button
+                        mode='contained'
+                        onPress={() => verifyOrder(order._id)}
+                        style={{
+                          marginVertical: 10,
+                          width: "40%",
+                          height: 30,
+                          backgroundColor: "#4fc3f7",
+                          boxShadow: "0px 2px 5px 2px #bdbdbd",
+                        }}
+                        labelStyle={{
+                          color: "#ffffff",
+                          fontWeight: "700",
+                          fontSize: 12,
+                          marginHorizontal: "none",
+                        }}>
+                        Verify order
+                      </Button>
+                    )}
                   </View>
                 ) : (
                   <View
