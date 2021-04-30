@@ -1,12 +1,42 @@
 {
-  "name": "treazer_admin",
-  "displayName": "treazer_admin",
   "expo": {
-    "name": "treazer_admin",
-    "slug": "treazer_admin",
+    "name": "Treazer_Admin",
+    "slug": "Treazer_Admin",
     "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./src/assets/images/competitor.png",
+    "primaryColor":"#bbdefb",
+    "splash": {
+      "image": "./src/assets/images/competitor.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#e3f2fd",
+      "themeColor": "#bbdefb"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./src/assets/images/competitor.png",
+        "backgroundColor": "#e3f2fd"
+      }
+    },
+    "web": {
+    "display": "standalone",
+    "lang": "en",
+    "name": "Treazer_admin",
+    "shortName": "TZ_Admin",
+    "startUrl": "/?utm_source=web_app_manifest",
+    "backgroundColor": "#e3f2fd",
+    "themeColor": "#bbdefb",
+    "favicon": "./src/assets/images/competitor.png"
+
+    }
   }
 }

@@ -45,7 +45,6 @@ const Rootnavigation = () => {
             }}
             value={number}
             placeholder='useless placeholder'
-            keyboardType='numeric'
             secureTextEntry={true}
             placeholder='Password'
           />
