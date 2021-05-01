@@ -4,10 +4,10 @@
     "slug": "Treazer_Admin",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./src/assets/images/competitor.png",
+    "icon": "./src/assets/images/competitor4.png",
     "primaryColor":"#bbdefb",
     "splash": {
-      "image": "./src/assets/images/competitor.png",
+      "image": "./src/assets/images/competitor4.png",
       "resizeMode": "contain",
       "backgroundColor": "#e3f2fd",
       "themeColor": "#bbdefb"
@@ -23,7 +23,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./src/assets/images/competitor.png",
+        "foregroundImage": "./src/assets/images/competitor4.png",
         "backgroundColor": "#e3f2fd"
       }
     },

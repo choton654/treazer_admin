@@ -14,11 +14,11 @@ import { Appbar, Button } from "react-native-paper";
 import Allorders from "./Allorders";
 const { height } = Dimensions.get("window");
 const Rootnavigation = () => {
-  const [number, setChangeNumber] = useState(null);
-  const [error, setError] = useState(null);
+  const [number, setChangeNumber] = useState("");
+  const [error, setError] = useState("");
   const [pass, setPassword] = useState(null);
   const login = () => {
-    setChangeNumber(null);
+    setChangeNumber("");
     if (number !== null && number !== "info_admin_treazer") {
       setError("Admin resources! Access denied");
     } else if (number !== null && number === "info_admin_treazer") {
@@ -41,7 +41,7 @@ const Rootnavigation = () => {
             style={styles.input}
             onChangeText={(text) => {
               setChangeNumber(text);
-              setError(null);
+              setError("");
             }}
             value={number}
             placeholder='useless placeholder'
