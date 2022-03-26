@@ -12,7 +12,9 @@ const password = localStorage.getItem("password") ? true : false;
 const MORE_ICON = Platform.OS === "ios" ? "dots-horizontal" : "dots-vertical";
 import { Appbar, Button } from "react-native-paper";
 import Allorders from "./Allorders";
+
 const { height } = Dimensions.get("window");
+
 const Rootnavigation = () => {
   const [number, setChangeNumber] = useState("");
   const [error, setError] = useState("");
@@ -32,8 +34,8 @@ const Rootnavigation = () => {
     <View>
       <Appbar.Header style={{ top: 0 }}>
         <Appbar.Content title='Admin' subtitle={"Pannel"} />
-        <Appbar.Action icon='magnify' onPress={() => {}} />
-        <Appbar.Action icon={MORE_ICON} onPress={() => {}} />
+        <Appbar.Action icon='magnify' onPress={() => { }} />
+        <Appbar.Action icon={MORE_ICON} onPress={() => { }} />
       </Appbar.Header>
       {!pass && (
         <SafeAreaView>
@@ -44,7 +46,6 @@ const Rootnavigation = () => {
               setError("");
             }}
             value={number}
-            placeholder='useless placeholder'
             secureTextEntry={true}
             placeholder='Password'
           />
