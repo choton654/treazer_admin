@@ -1,10 +1,9 @@
 import React from "react";
-import Rootnavigation from "./src/rootnavigation";
-import { OrderContextProvider } from "./src/orderContext";
 import * as PusherPushNotifications from "@pusher/push-notifications-web";
+import Main from "./src/Main";
 
 window.navigator.serviceWorker.ready.then((serviceWorkerRegistration) => {
-  console.log(serviceWorkerRegistration);
+  // console.log(serviceWorkerRegistration);
   const beamsClient = new PusherPushNotifications.Client({
     instanceId: "36674458-c456-44a3-823b-616088fa88e1",
     serviceWorkerRegistration: serviceWorkerRegistration,
@@ -16,6 +15,7 @@ window.navigator.serviceWorker.ready.then((serviceWorkerRegistration) => {
       console.log("Successfully registered with Beams. Device ID:", deviceId)
     )
     .then(() => beamsClient.addDeviceInterest("order"))
+    .then(() => beamsClient.addDeviceInterest("admin"))
     .then(() => beamsClient.getDeviceInterests())
     .then((interests) => console.log("Current interests:", interests))
     .catch((err) => {
@@ -24,8 +24,6 @@ window.navigator.serviceWorker.ready.then((serviceWorkerRegistration) => {
 });
 export default function App() {
   return (
-    <OrderContextProvider>
-      <Rootnavigation />
-    </OrderContextProvider>
+    <Main />
   );
 }

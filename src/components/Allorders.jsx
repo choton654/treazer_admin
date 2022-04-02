@@ -1,58 +1,60 @@
-import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, ScrollView, Dimensions } from "react-native";
-const { height } = Dimensions.get("window");
+import React, { useState, useCallback } from "react";
+import { StyleSheet, Text, View, ScrollView, Dimensions, InteractionManager } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Button, ActivityIndicator, Divider } from "react-native-paper";
 import axios from "axios";
-import BASE_URL from "./api";
-import { orderContext } from "./orderContext";
+import BASE_URL from "../utils/api";
+import { GlobalContext } from "../globalcontext";
+import { useFocusEffect } from "@react-navigation/native";
+import Loader from "./Loader";
+
+const { height } = Dimensions.get("window");
 
 const Allorders = () => {
-  const { state: odrState, dispatch: orderDispatch } = orderContext();
-  useEffect(() => {
-    getAllOrders();
-  }, []);
+
+  const { state: globalState, dispatch: globalDispatch } = GlobalContext();
+
+  useFocusEffect(
+    useCallback(() => {
+      const task = InteractionManager.runAfterInteractions(async () => {
+        try {
+          const { data: { order } } = await axios.get(`${BASE_URL}/api/order/adminallorder`)
+          console.log(order);
+          globalDispatch({ type: "GET_ALL_ORDERS", payload: order });
+        } catch (error) {
+          console.log("error", error);
+        }
+        return () => task.cancel()
+      })
+    }, [])
+  )
 
   const [acceptOrderReq, setacceptOrderReq] = useState(true);
 
-  const getAllOrders = () => {
-    if (odrState.orders === null) {
-      axios
-        .get(`${BASE_URL}/api/order/adminallorder`)
-        .then((res) => {
-          const { order } = res.data;
-          console.log(order);
-          orderDispatch({ type: "GET_ALL_ORDERS", payload: order });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  };
-
-  const verifyOrder = (orderId) => {
+  const verifyOrder = useCallback((orderId) => {
     setacceptOrderReq(false);
     axios
       .post(`${BASE_URL}/api/order/adminverifyorder`, { orderId })
       .then((res) => {
         const { msg, order } = res.data;
         console.log(msg, order);
-        orderDispatch({ type: "VERIFY_ORDER", payload: order });
+        globalDispatch({ type: "VERIFY_ORDER", payload: order });
         setacceptOrderReq(true);
       })
       .catch((err) => {
         console.log(err);
       });
-  };
+  }, [])
+
   return (
     <ScrollView
       contentContainerStyle={{
         width: "100%",
         backgroundColor: "#ffffff",
       }}>
-      {odrState && odrState.orders ? (
-        odrState.orders.length > 0 ? (
-          odrState.orders.map((order, idx) => (
+      {globalState.orders ? (
+        globalState.orders.length > 0 ? (
+          globalState.orders.map((order, idx) => (
             <View
               key={idx}
               style={{
@@ -380,14 +382,7 @@ const Allorders = () => {
           </View>
         )
       ) : (
-        <View
-          style={{
-            height: height * 0.7,
-            backgroundColor: "#ffffff",
-            justifyContent: "center",
-          }}>
-          <ActivityIndicator animating={true} color='#82b1ff' size='large' />
-        </View>
+        <Loader />
       )}
     </ScrollView>
   );

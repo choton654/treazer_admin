@@ -7,10 +7,13 @@
     "ios": "react-native run-ios",
     "web": "expo start --web",
     "build": "expo build:web",
+    "expo": "expo start",
     "start": "react-native start"
   },
   "dependencies": {
     "@pusher/push-notifications-web": "^1.1.0",
+    "@react-navigation/material-top-tabs": "^6.2.1",
+    "@react-navigation/native": "^6.0.10",
     "axios": "^0.21.1",
     "expo": "~41.0.1",
     "expo-splash-screen": "~0.10.2",
@@ -22,7 +25,9 @@
     "react-native-gesture-handler": "~1.10.2",
     "react-native-paper": "^4.8.1",
     "react-native-reanimated": "~2.1.0",
-    "react-native-screens": "~3.0.0",
+    "react-native-safe-area-context": "^4.2.4",
+    "react-native-screens": "^3.13.1",
+    "react-native-tab-view": "^3.1.1",
     "react-native-unimodules": "~0.13.3",
     "react-native-web": "~0.13.12"
   },
