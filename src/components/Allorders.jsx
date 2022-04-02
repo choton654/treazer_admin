@@ -48,8 +48,8 @@ const Allorders = () => {
   return (
     <ScrollView
       contentContainerStyle={{
-        height: height - 100,
         backgroundColor: "#ffffff",
+        paddingBottom: 20
       }}>
       {globalState.orders ? (
         globalState.orders.length > 0 ? (
