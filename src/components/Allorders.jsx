@@ -19,7 +19,6 @@ const Allorders = () => {
       const task = InteractionManager.runAfterInteractions(async () => {
         try {
           const { data: { order } } = await axios.get(`${BASE_URL}/api/order/adminallorder`)
-          console.log(order);
           globalDispatch({ type: "GET_ALL_ORDERS", payload: order });
         } catch (error) {
           console.log("error", error);
@@ -31,7 +30,7 @@ const Allorders = () => {
 
   const [acceptOrderReq, setacceptOrderReq] = useState(true);
 
-  const verifyOrder = useCallback((orderId) => {
+  const verifyOrder = (orderId) => {
     setacceptOrderReq(false);
     axios
       .post(`${BASE_URL}/api/order/adminverifyorder`, { orderId })
@@ -44,12 +43,12 @@ const Allorders = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [])
+  }
 
   return (
     <ScrollView
       contentContainerStyle={{
-        width: "100%",
+        height: height - 100,
         backgroundColor: "#ffffff",
       }}>
       {globalState.orders ? (

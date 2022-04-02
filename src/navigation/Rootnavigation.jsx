@@ -1,8 +1,5 @@
 import React from "react";
-import {
-  View,
-  StyleSheet,
-} from "react-native";
+import { View } from "react-native";
 import Navbar from "../components/Appbar";
 import TabNavigation from "./TabNavigation";
 

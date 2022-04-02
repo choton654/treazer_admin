@@ -19,6 +19,18 @@ export const reducer = (state, action) => {
         ...state,
         stores: payload
       }
+    case "VERIFY_STORES":
+      return {
+        ...state,
+        stores: state.stores.map(store => {
+          if (store._id.toString() === payload.toString()) {
+            store.isVerified = true
+            return store
+          } else {
+            return store
+          }
+        })
+      }
     case "VERIFY_ORDER":
       return {
         ...state,

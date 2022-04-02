@@ -22,6 +22,7 @@ window.navigator.serviceWorker.ready.then((serviceWorkerRegistration) => {
       console.log(err);
     });
 });
+
 export default function App() {
   return (
     <Main />
