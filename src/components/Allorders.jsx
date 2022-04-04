@@ -1,12 +1,11 @@
-import React, { useState, useCallback } from "react";
+import React, { useCallback } from "react";
 import { StyleSheet, Text, View, ScrollView, Dimensions, InteractionManager } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Button, ActivityIndicator, Divider } from "react-native-paper";
-import axios from "axios";
-import BASE_URL from "../utils/api";
 import { GlobalContext } from "../globalcontext";
 import { useFocusEffect } from "@react-navigation/native";
 import Loader from "./Loader";
+import { useGetAllOrderQuery, useVerifyOrderMutation } from "../query/order";
 
 const { height } = Dimensions.get("window");
 
@@ -14,36 +13,21 @@ const Allorders = () => {
 
   const { state: globalState, dispatch: globalDispatch } = GlobalContext();
 
+  const { data, isLoading, isFetching, error } = useGetAllOrderQuery()
+  const [verify, { isLoading: mutationIsLoading }] = useVerifyOrderMutation()
+
   useFocusEffect(
     useCallback(() => {
       const task = InteractionManager.runAfterInteractions(async () => {
-        try {
-          const { data: { order } } = await axios.get(`${BASE_URL}/api/order/adminallorder`)
-          globalDispatch({ type: "GET_ALL_ORDERS", payload: order });
-        } catch (error) {
-          console.log("error", error);
-        }
+        if (data) { globalDispatch({ type: "GET_ALL_ORDERS", payload: data.order }) }
         return () => task.cancel()
       })
-    }, [])
+    }, [data])
   )
 
-  const [acceptOrderReq, setacceptOrderReq] = useState(true);
-
-  const verifyOrder = (orderId) => {
-    setacceptOrderReq(false);
-    axios
-      .post(`${BASE_URL}/api/order/adminverifyorder`, { orderId })
-      .then((res) => {
-        const { msg, order } = res.data;
-        console.log(msg, order);
-        globalDispatch({ type: "VERIFY_ORDER", payload: order });
-        setacceptOrderReq(true);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+  const verifyOrder = useCallback(
+    (orderId) => verify(orderId),
+    [useVerifyOrderMutation])
 
   return (
     <ScrollView
@@ -292,7 +276,7 @@ const Allorders = () => {
                   </View>
                 </View>
 
-                {acceptOrderReq ? (
+                {!mutationIsLoading ? (
                   <View
                     style={{
                       justifyContent: "center",
