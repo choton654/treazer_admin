@@ -6,7 +6,7 @@ import { GlobalContext } from '../globalcontext'
 import Loader from './Loader'
 import { useGetAllResturantQuery, useVerifyRestaurantMutation } from "../query/restaurant"
 
-const { height } = Dimensions.get("window")
+const { height, width } = Dimensions.get("window")
 
 const Store = () => {
 
@@ -41,22 +41,52 @@ const Store = () => {
             shadowOpacity: 0.7, shadowRadius: 10, borderWidth: 1,
             borderColor: colors.primary
         }}>
-            <Card.Title title={item.resturant_name} subtitle={item.address}
-                left={({ size }) =>
-                    <Avatar.Image size={size} source={{ uri: item.owner?.photo }} />} />
-
+            <View style={{ flexDirection: "row", padding: 10, alignItems: "center" }}>
+                <Avatar.Image size={30} source={{ uri: item.owner?.photo }} />
+                <View style={{ marginLeft: 10 }}>
+                    <Text style={{ textAlign: "left" }}>
+                        {item.resturant_name}
+                    </Text>
+                    <Text style={{ textAlign: "left", marginVertical: 5, width: width * 0.75 }}>
+                        {item.address}
+                    </Text>
+                    <Text style={{ textAlign: "left" }}>
+                        Phone No. {item.phone}
+                    </Text>
+                </View>
+            </View>
             <Card.Cover source={{ uri: item.coverPic }} />
             <Card.Actions>
-                {item.isVerified === undefined || !item.isVerified &&
-                    <Button mode="contained"
-                        labelStyle={{ color: "#fff" }}
-                        style={{ marginRight: 10 }}
-                        loading={mutationIsLoading}
-                        onPress={() => verifyRestaurant(item._id)}>Verify</Button>
+                {item.isVerified === undefined || !item.isVerified ?
+                    <View style={{ flexDirection: "row" }}>
+                        <Button mode="contained"
+                            labelStyle={{ color: "#fff" }}
+                            style={{ marginRight: 10 }}
+                            loading={mutationIsLoading}
+                            onPress={() => verifyRestaurant(item._id)}>
+                            Verify
+                        </Button>
+                        <Button mode="contained" loading={mutationIsLoading}
+                            labelStyle={{ color: "#fff" }}
+                        >Claim
+                        </Button>
+                    </View>
+                    :
+                    <View style={{ flexDirection: "row" }}>
+                        <Button mode="contained"
+                            labelStyle={{ color: "#fff" }}
+                            style={{ marginRight: 10, backgroundColor: "#fcd34d" }}
+                            loading={mutationIsLoading}>
+                            Warning
+                        </Button>
+                        <Button mode="contained"
+                            loading={mutationIsLoading}
+                            labelStyle={{ color: "#fff" }}
+                            style={{ backgroundColor: "#ef4444" }}
+                        >Bann
+                        </Button>
+                    </View>
                 }
-                <Button mode="contained" loading={mutationIsLoading}
-                    labelStyle={{ color: "#fff" }}
-                >Claim</Button>
                 {item.exploredBy &&
                     <View style={{ flexDirection: "row", marginLeft: "auto" }}>
                         <Text style={{ textAlign: "center" }}>ExploredBy</Text>
@@ -68,7 +98,7 @@ const Store = () => {
         </Card>
     )
 
-    if (!didAnimationFinish || isLoading || isFetching) { return <Loader /> }
+    if (!didAnimationFinish) { return <Loader /> }
 
     return (
         <View style={{ height: height - 100 }}>
