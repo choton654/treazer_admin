@@ -1,6 +1,7 @@
 export const initialState = {
   orders: null,
-  stores: null
+  stores: null,
+  singleStore: null
 };
 
 export const reducer = (state, action) => {
@@ -43,5 +44,10 @@ export const reducer = (state, action) => {
           }
         }),
       };
+    case "SET_SINGLE_STORE":
+      return {
+        ...state,
+        singleStore: payload
+      }
   }
 };

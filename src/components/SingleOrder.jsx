@@ -141,7 +141,7 @@ const SingleOrder = ({ order, verifyOrder, mutationIsLoading }) => {
                                 color: "#424242",
                                 letterSpacing: 1,
                             }}>
-                            Rs.{order.totalPrice}
+                            Rs.{order.totalPrice + order.resturantId?.deliveryPrice}
                         </Text>
                     </View>
                     <View

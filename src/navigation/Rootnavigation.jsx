@@ -2,13 +2,24 @@ import React from "react";
 import { View } from "react-native";
 import Navbar from "../components/Appbar";
 import TabNavigation from "./TabNavigation";
+import StackNavigation from "./StackNavigation";
+import { createStackNavigator } from "@react-navigation/stack"
+import { NavigationContainer } from "@react-navigation/native"
+
+const Stack = createStackNavigator()
 
 const Rootnavigation = () => {
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <Navbar />
-      <TabNavigation />
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Tab"
+          screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Tab" component={TabNavigation} />
+          <Stack.Screen name="Stack" component={StackNavigation} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </View>
   )
 };

@@ -20,6 +20,11 @@ export const storeApi = createApi({
                     : // an error occurred, but we still want to refetch this query when `{ type: 'Posts', id: 'LIST' }` is invalidated
                     [{ type: 'Store', id: 'LIST' }],
         }),
+        getSingleResturant: builder.query({
+            query: (id) => `${id}/getOneResturant`,
+            providesTags: (result) =>
+                [{ type: 'Store', id: result._id }],
+        }),
         verifyRestaurant: builder.mutation({
             query: (id) => ({
                 url: `${id}/verify`,
@@ -31,4 +36,5 @@ export const storeApi = createApi({
     }),
 })
 
-export const { useGetAllResturantQuery, useVerifyRestaurantMutation } = storeApi
+export const { useGetAllResturantQuery, useVerifyRestaurantMutation,
+    useGetSingleResturantQuery } = storeApi

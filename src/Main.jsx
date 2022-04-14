@@ -4,7 +4,6 @@ import { Provider } from "react-redux"
 import React from 'react'
 import { Provider as PaperProvider, DefaultTheme } from "react-native-paper"
 import Rootnavigation from './navigation/Rootnavigation'
-import { NavigationContainer } from "@react-navigation/native"
 import ProiderWrapper from "./globalcontext"
 import { storeApi } from './query/restaurant'
 import { orderApi } from './query/order'
@@ -36,9 +35,7 @@ const Main = () => {
             <PaperProvider theme={theme}>
                 <ProiderWrapper>
                     <Provider store={store}>
-                        <NavigationContainer>
-                            <Rootnavigation />
-                        </NavigationContainer>
+                        <Rootnavigation />
                     </Provider>
                 </ProiderWrapper>
             </PaperProvider>
