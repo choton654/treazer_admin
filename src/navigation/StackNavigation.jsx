@@ -7,7 +7,7 @@ const Stack = createStackNavigator()
 
 const StackNavigation = () => {
     return (
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="SingleStore" component={SingleStore} />
         </Stack.Navigator>
     )

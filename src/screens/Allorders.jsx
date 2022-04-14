@@ -5,9 +5,9 @@ import {
 } from "react-native";
 import { GlobalContext } from "../globalcontext";
 import { useFocusEffect } from "@react-navigation/native";
-import Loader from "./Loader";
+import Loader from "../components/Loader";
 import { useGetAllOrderQuery, useVerifyOrderMutation } from "../query/order";
-import SingleOrder from "./SingleOrder";
+import SingleOrder from "../components/SingleOrder";
 
 const { height } = Dimensions.get("window");
 

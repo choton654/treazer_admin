@@ -1,7 +1,7 @@
 import React from 'react'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
-import Store from '../components/Store'
-import Allorders from '../components/Allorders'
+import Store from '../screens/Store'
+import Allorders from '../screens/Allorders'
 
 const TopTab = createMaterialTopTabNavigator()
 
