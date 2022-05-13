@@ -1,7 +1,7 @@
-import { View, InteractionManager, FlatList } from 'react-native'
+import { View, InteractionManager, FlatList, TouchableOpacity } from 'react-native'
 import React, { useCallback, useState } from 'react'
 import { useFocusEffect, useRoute } from '@react-navigation/native'
-import { useGetSingleResturantQuery } from '../query/restaurant'
+import { useGetSingleResturantQuery, useDeleteProductMutation } from '../query/queryServices'
 import Loader from '../components/Loader'
 import { GlobalContext } from '../globalcontext'
 import { Text, Card } from 'react-native-paper'
@@ -11,7 +11,13 @@ const SingleStore = () => {
     const { params: { storeid } } = useRoute()
     const { state: globalState, dispatch: globalDispatch } = GlobalContext();
     const { data } = useGetSingleResturantQuery(storeid)
+    const [deleteProduct, { isLoading }] = useDeleteProductMutation()
     const [didAnimationFinish, setDidANimationFinish] = useState(false)
+    console.log("loading", isLoading);
+
+    const deleteProd = useCallback(
+        (id) => deleteProduct({ id, storeid })
+        , [useDeleteProductMutation])
 
     useFocusEffect(
         useCallback(() => {
@@ -27,6 +33,12 @@ const SingleStore = () => {
         <Card style={{ marginBottom: 10 }}>
             <Card.Title title={`${item.name}    -- ${item.price}`} />
             <Card.Cover source={{ uri: item.photo }} />
+            <Card.Actions>
+                <TouchableOpacity style={{ borderWidth: 1 }}
+                    onPress={() => deleteProd(item._id)}>
+                    <Text>Delete</Text>
+                </TouchableOpacity>
+            </Card.Actions>
         </Card>
     )
 
@@ -34,13 +46,17 @@ const SingleStore = () => {
 
     return (
         <View style={{ flex: 1, backgroundColor: "#fff" }}>
-            {globalState.singleStore?.allProducts.length > 0 &&
+            {globalState.singleStore?.allProducts.length > 0 ?
                 <FlatList
                     data={globalState.singleStore.allProducts}
                     renderItem={renderItem}
                     keyExtractor={item => item._id}
                     contentContainerStyle={{ paddingBottom: 20 }}
                 />
+                :
+                <View style={{ flex: 1 }}>
+                    <Text>No product in this store</Text>
+                </View>
             }
         </View>
     )

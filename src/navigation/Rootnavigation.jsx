@@ -12,8 +12,8 @@ const Rootnavigation = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <Navbar />
       <NavigationContainer>
+        <Navbar />
         <Stack.Navigator initialRouteName="Tab"
           screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Tab" component={TabNavigation} />

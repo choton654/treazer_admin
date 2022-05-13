@@ -6,7 +6,7 @@ import {
 import { GlobalContext } from "../globalcontext";
 import { useFocusEffect } from "@react-navigation/native";
 import Loader from "../components/Loader";
-import { useGetAllOrderQuery, useVerifyOrderMutation } from "../query/order";
+import { useGetAllOrderQuery, useVerifyOrderMutation } from "../query/queryServices";
 import SingleOrder from "../components/SingleOrder";
 
 const { height } = Dimensions.get("window");

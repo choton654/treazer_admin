@@ -6,7 +6,7 @@ import Loader from '../components/Loader'
 import {
     useGetAllResturantQuery,
     useVerifyRestaurantMutation
-} from "../query/restaurant"
+} from "../query/queryServices"
 import StoreCard from '../components/StoreCard'
 
 const Store = () => {
@@ -22,7 +22,7 @@ const Store = () => {
             const task = InteractionManager.runAfterInteractions(() => {
                 if (data) {
                     // this gives an object with dates as keys
-                    const groups = data.resturants.reduce((groups, store) => {
+                    const groups = data.resturants.slice().reverse().reduce((groups, store) => {
                         const date = store.createdAt.split('T')[0];
                         if (!groups[date]) {
                             groups[date] = [];
