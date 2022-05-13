@@ -22,10 +22,8 @@ export const api = createApi({
         }),
         getSingleResturant: builder.query({
             query: (id) => `resturant/${id}/getOneResturant`,
-            providesTags: (result) => {
-                console.log(result._id);
-                return [{ type: 'Store', id: result._id }]
-            }
+            providesTags: (result) =>
+                [{ type: 'Store', id: result.resturant._id }]
         }),
         verifyRestaurant: builder.mutation({
             query: (id) => ({
@@ -61,10 +59,8 @@ export const api = createApi({
                 url: `product/${id}/deleteproduct`,
                 method: "DELETE",
             }),
-            invalidatesTags: (result, error, { storeid }) => {
-                console.log(storeid);
-                return [{ type: 'Store', id: storeid }]
-            }
+            invalidatesTags: (result, error, { storeid }) =>
+                [{ type: 'Store', id: storeid }]
         })
     }),
 })
