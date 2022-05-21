@@ -13,7 +13,6 @@ const SingleStore = () => {
     const { data } = useGetSingleResturantQuery(storeid)
     const [deleteProduct, { isLoading }] = useDeleteProductMutation()
     const [didAnimationFinish, setDidANimationFinish] = useState(false)
-    console.log("loading", isLoading);
 
     const deleteProd = useCallback(
         (id) => deleteProduct({ id, storeid })

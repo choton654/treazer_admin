@@ -6,6 +6,7 @@ import { Button, ActivityIndicator, Divider, useTheme } from "react-native-paper
 const SingleOrder = ({ order, verifyOrder, mutationIsLoading }) => {
 
     const { colors } = useTheme()
+    console.log(order);
 
     return (
         <View
@@ -90,7 +91,7 @@ const SingleOrder = ({ order, verifyOrder, mutationIsLoading }) => {
                         letterSpacing: 1,
                         color: "#424242",
                     }}>
-                    Order Time:
+                    Order Date:
                     <Text
                         style={{
                             marginHorizontal: 5,
@@ -102,6 +103,50 @@ const SingleOrder = ({ order, verifyOrder, mutationIsLoading }) => {
                         {new Date(order.createdAt).toDateString()}
                     </Text>
                 </Text>
+                <Text
+                    style={{
+                        marginVertical: 5,
+                        marginLeft: 10,
+                        fontWeight: "400",
+                        fontSize: 15,
+                        letterSpacing: 1,
+                        color: "#424242",
+                    }}>
+                    Order Time:
+                    <Text
+                        style={{
+                            marginHorizontal: 5,
+                            fontWeight: "700",
+                            fontSize: 15,
+                            color: "#424242",
+                            letterSpacing: 1,
+                        }}>
+                        {new Date(order.createdAt).toLocaleTimeString()}
+                    </Text>
+                </Text>
+                <View
+                    style={{
+                        flexDirection: "row",
+                        marginVertical: 10,
+                    }}>
+                    <Ionicons
+                        name='location-sharp'
+                        size={20}
+                        color='#4fc3f7'
+                        style={{ marginLeft: 10 }}
+                    />
+                    <Text
+                        style={{
+                            marginHorizontal: 5,
+                            fontWeight: "600",
+                            fontSize: 12,
+                            color: "#424242",
+                            letterSpacing: 1,
+                        }}>
+                        {order.shippingaddress &&
+                            order.shippingaddress.formattedAddress}
+                    </Text>
+                </View>
                 <View
                     style={{
                         height: 50,
@@ -171,30 +216,7 @@ const SingleOrder = ({ order, verifyOrder, mutationIsLoading }) => {
                         </Text>
                     </View>
                 </View>
-                <View
-                    style={{
-                        flexDirection: "row",
-                        marginVertical: 10,
-                    }}>
-                    <Ionicons
-                        name='location-sharp'
-                        size={20}
-                        color='#4fc3f7'
-                        style={{ marginLeft: 10 }}
-                    />
-                    <Text
-                        style={{
-                            marginHorizontal: 5,
-                            fontWeight: "600",
-                            fontSize: 12,
-                            color: "#424242",
-                            letterSpacing: 1,
-                        }}>
-                        {order.shippingaddress &&
-                            order.shippingaddress.formattedAddress}
-                    </Text>
-                </View>
-                <Divider />
+                {/* <Divider /> */}
                 <View style={{ marginTop: 5 }}>
                     <Text
                         style={{
@@ -262,7 +284,29 @@ const SingleOrder = ({ order, verifyOrder, mutationIsLoading }) => {
                         </Text>
                     </View>
                 </View>
-
+                <View style={{ marginHorizontal: 10, marginBottom: 10 }}>
+                    <Text style={{
+                        marginBottom: 5,
+                        fontWeight: "600",
+                        fontSize: 15
+                    }}>Order Items
+                    </Text>
+                    {order.orderItems.map((item, idx) =>
+                        <View key={idx}>
+                            <View style={{
+                                flexDirection: "row", justifyContent: "space-between",
+                                alignItems: "center"
+                            }}>
+                                <Text>{item.product?.name}</Text>
+                                <Text>{item.quantity}x{item.product?.price}={parseInt(item.quantity) * parseInt(item.product?.price)}</Text>
+                            </View>
+                        </View>
+                    )}
+                    <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                        <Text>Total</Text>
+                        <Text>{order.totalPrice}</Text>
+                    </View>
+                </View>
                 {!mutationIsLoading ? (
                     <View
                         style={{
