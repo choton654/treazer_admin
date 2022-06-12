@@ -1,12 +1,15 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { Button, ActivityIndicator, Divider, useTheme } from "react-native-paper";
+import { Button, ActivityIndicator, useTheme } from "react-native-paper";
 
 const SingleOrder = ({ order, verifyOrder, mutationIsLoading }) => {
 
     const { colors } = useTheme()
-    console.log(order);
+    let newOrderId = order._id
+    const start = 4
+    // Math.floor(Math.random() * 10)
+    newOrderId = newOrderId.split('').filter(item => ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].includes(item)).slice(start, start + 4).join('')
 
     return (
         <View
@@ -27,7 +30,8 @@ const SingleOrder = ({ order, verifyOrder, mutationIsLoading }) => {
                 <Text
                     style={{
                         marginVertical: 5,
-                        marginLeft: 10,
+                        marginLeft: 'auto',
+                        marginRight: 'auto',
                         fontWeight: "400",
                         fontSize: 15,
                         letterSpacing: 1,
@@ -35,12 +39,16 @@ const SingleOrder = ({ order, verifyOrder, mutationIsLoading }) => {
                     }}>
                     Order Id: <Text
                         style={{
-                            marginHorizontal: 5,
-                            fontWeight: "700",
-                            fontSize: 15,
+                            fontWeight: "400",
+                            fontSize: 12,
                             color: "#424242",
                             letterSpacing: 1,
-                        }}>{order._id}
+                        }}>{order._id}<Text style={{
+                            fontWeight: "700",
+                            fontSize: 15,
+                            letterSpacing: 1,
+                            color: "#424242",
+                        }}>{newOrderId}</Text>
                     </Text>
                 </Text>
                 <Text
@@ -145,6 +153,52 @@ const SingleOrder = ({ order, verifyOrder, mutationIsLoading }) => {
                         }}>
                         {order.shippingaddress &&
                             order.shippingaddress.formattedAddress}
+                    </Text>
+                </View>
+                <View
+                    style={{
+                        flexDirection: "row",
+                        marginVertical: 10,
+                    }}>
+                    <Ionicons
+                        name='location-sharp'
+                        size={20}
+                        color='#4fc3f7'
+                        style={{ marginLeft: 10 }}
+                    />
+                    <Text
+                        style={{
+                            marginHorizontal: 5,
+                            fontWeight: "600",
+                            fontSize: 12,
+                            color: "#424242",
+                            letterSpacing: 1,
+                        }}>
+                        Land mark: {order.shippingaddress &&
+                            order.shippingaddress.landmark}
+                    </Text>
+                </View>
+                <View
+                    style={{
+                        flexDirection: "row",
+                        marginVertical: 10,
+                    }}>
+                    <Ionicons
+                        name='location-sharp'
+                        size={20}
+                        color='#4fc3f7'
+                        style={{ marginLeft: 10 }}
+                    />
+                    <Text
+                        style={{
+                            marginHorizontal: 5,
+                            fontWeight: "600",
+                            fontSize: 12,
+                            color: "#424242",
+                            letterSpacing: 1,
+                        }}>
+                        House No: {order.shippingaddress &&
+                            order.shippingaddress.flatNo}
                     </Text>
                 </View>
                 <View
@@ -283,6 +337,19 @@ const SingleOrder = ({ order, verifyOrder, mutationIsLoading }) => {
                                 order.resturantId.location.formattedAddress}
                         </Text>
                     </View>
+                </View>
+                <View style={{ marginHorizontal: 10, marginBottom: 10, flexDirection: "row" }}>
+                    <Text style={{ fontWeight: "700" }}>Order Status</Text>
+                    {order.isRestaurantOwnerVerify &&
+                        <Text style={{ color: "green", marginLeft: 5, fontWeight: '600' }}>
+                            Owner verified the order
+                        </Text>}
+                    {order.isRestaurantOwnerReject &&
+                        <Text style={{ color: "red", marginLeft: 5, fontWeight: '600' }}>
+                            Owner rejected the order
+                        </Text>}
+                    {!order.isRestaurantOwnerReject && !order.isRestaurantOwnerVerify &&
+                        <Text style={{ color: "red", marginLeft: 5, fontWeight: '600' }}>Pending...</Text>}
                 </View>
                 <View style={{ marginHorizontal: 10, marginBottom: 10 }}>
                     <Text style={{

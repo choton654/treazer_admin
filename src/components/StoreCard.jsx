@@ -50,6 +50,8 @@ const StoreCard = ({ item, verifyRestaurant, mutationIsLoading }) => {
                             }
                         </View>
                     </View>
+                    {store.isOpened ? <Text style={{ marginLeft: 10 }}>Store is Open</Text> :
+                        <Text style={{ marginLeft: 10 }}>Store is Close</Text>}
                     <Card.Actions>
                         {store.isVerified === undefined || !store.isVerified ?
                             <View style={{ flexDirection: "row" }}>

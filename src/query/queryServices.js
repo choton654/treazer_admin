@@ -33,6 +33,22 @@ export const api = createApi({
             invalidatesTags: (result, error, id) =>
                 [{ type: 'Store', id }]
         }),
+        openRestaurant: builder.mutation({
+            query: () => ({
+                url: `resturant/openAllRestaurant`,
+                method: 'PUT'
+            }),
+            invalidatesTags: (result, error, id) =>
+                [{ type: 'Store' }]
+        }),
+        closeRestaurant: builder.mutation({
+            query: () => ({
+                url: `resturant/closeAllRestaurant`,
+                method: 'PUT'
+            }),
+            invalidatesTags: (result, error, id) =>
+                [{ type: 'Store' }]
+        }),
         getAllOrder: builder.query({
             query: () => `order/adminallorder`,
             providesTags: (result) =>  // is result available?
@@ -67,4 +83,5 @@ export const api = createApi({
 
 export const { useGetAllResturantQuery, useVerifyRestaurantMutation,
     useGetSingleResturantQuery, useDeleteProductMutation,
-    useGetAllOrderQuery, useVerifyOrderMutation } = api
+    useGetAllOrderQuery, useVerifyOrderMutation,
+    useOpenRestaurantMutation, useCloseRestaurantMutation } = api
